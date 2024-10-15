@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function ToDoList() {
   const [tasks, setTasks] = useState([
@@ -7,6 +7,19 @@ function ToDoList() {
     "Walk the dog",
   ]);
   const [newTask, setNewTask] = useState("");
+
+  // Load tasks from localStorage when the component mounts
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+    if (storedTasks) {
+      setTasks(storedTasks);
+    }
+  }, []);
+
+  // Save tasks to localStorage whenever the tasks state changes
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function handelInputChange(event) {
     setNewTask(event.target.value);
