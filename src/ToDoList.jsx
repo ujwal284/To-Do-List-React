@@ -7,6 +7,7 @@ function ToDoList() {
     "Walk the dog",
   ]);
   const [newTask, setNewTask] = useState("");
+  const [editIndex, setEditIndex] = useState(null);
 
   // Load tasks from localStorage when the component mounts
   useEffect(() => {
@@ -21,7 +22,7 @@ function ToDoList() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  function handelInputChange(event) {
+  function handleInputChange(event) {
     setNewTask(event.target.value);
   }
 
@@ -59,33 +60,56 @@ function ToDoList() {
     }
   }
 
+  function editTask(index) {
+    setNewTask(tasks[index]);
+    setEditIndex(index);
+  }
+
+  function updateTask() {
+    if (newTask.trim() !== "") {
+      const updatedTasks = tasks.map((task, index) =>
+        index === editIndex ? newTask : task
+      );
+      setTasks(updatedTasks);
+      setNewTask("");
+      setEditIndex(null);
+    }
+  }
+
   return (
     <div className="to-do-list">
-      <h1>To-Do-List</h1>
+      <h1>To-Do List</h1>
       <div>
         <input
           type="text"
           placeholder="Enter a task..."
           value={newTask}
-          onChange={handelInputChange}
+          onChange={handleInputChange}
         />
-        <button className="add-button" onClick={addTask}>
-          Add
-        </button>
+        {editIndex === null ? (
+          <button className="add-button" onClick={addTask}>
+            Add
+          </button>
+        ) : (
+          <button className="update-button" onClick={updateTask}>
+            Update
+          </button>
+        )}
       </div>
 
       <ol>
         {tasks.map((task, index) => (
           <li key={index}>
             <span className="text">{task}</span>
+            <button className="edit-button" onClick={() => editTask(index)}>
+              Edit
+            </button>
             <button className="delete-button" onClick={() => deleteTask(index)}>
               Delete
             </button>
-
             <button className="move-button" onClick={() => moveTaskUp(index)}>
               Up
             </button>
-
             <button className="move-button" onClick={() => moveTaskDown(index)}>
               Down
             </button>

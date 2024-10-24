@@ -32,6 +32,14 @@ button {
     background-color: hsl(125, 47%, 44%);
 }
 
+.update-button {
+    background-color: hsl(43, 87%, 50%);
+}
+
+.update-button:hover {
+    background-color: hsl(43, 87%, 40%);
+}
+
 .delete-button {
     background-color: hsl(10, 90%, 50%);
 }
@@ -40,13 +48,20 @@ button {
     background-color: hsl(10, 90%, 40%);
 }
 
-
 .move-button {
     background-color: hsl(207, 90%, 64%);
 }
 
 .move-button:hover {
     background-color: hsl(207, 90%, 54%);
+}
+
+.edit-button {
+    background-color: hsl(45, 90%, 60%);
+}
+
+.edit-button:hover {
+    background-color: hsl(45, 90%, 50%);
 }
 
 input[type="text"] {
@@ -78,7 +93,8 @@ li {
 }
 
 .delete-button,
-.move-button {
+.move-button,
+.edit-button {
     padding: 8px 12px;
     font-size: 1.4rem;
     margin-left: 10px;
